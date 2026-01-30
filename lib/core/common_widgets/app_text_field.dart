@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:onboarding_winter_project/core/resources/app_colors.dart';
-import 'package:onboarding_winter_project/core/resources/app_images.dart';
 import 'package:onboarding_winter_project/core/resources/app_text_styles.dart';
 
 class AppTextField extends StatefulWidget {
@@ -11,12 +10,15 @@ class AppTextField extends StatefulWidget {
     required this.icon,
     this.isPassword = false,
     this.type = TextInputType.text,
+    required this.controller, this.validator,
   });
 
   final String hint;
   final String icon;
   final bool? isPassword;
   final TextInputType? type;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -28,6 +30,8 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
+      controller: widget.controller,
       obscureText: widget.isPassword! && isVisible,
       keyboardType: widget.type,
       decoration: InputDecoration(
