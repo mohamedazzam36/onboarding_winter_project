@@ -14,7 +14,7 @@ class OnboardingApp extends StatelessWidget {
       initialRoute: Routes.splash,
       onGenerateRoute: AppRouter.onGenerateRoute,
       theme: ThemeData(
-        scaffoldBackgroundColor: AppColors.whiteColor,
+        scaffoldBackgroundColor: AppColors.primaryColor,
         fontFamily: AppTextStyles.fontFamily,
       ),
     );

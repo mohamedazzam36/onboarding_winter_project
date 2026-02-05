@@ -11,6 +11,9 @@ import 'package:onboarding_winter_project/features/auth/domain/use_cases/login_u
 import 'package:onboarding_winter_project/features/auth/domain/use_cases/save_user_data_use_case.dart';
 import 'package:onboarding_winter_project/features/auth/domain/use_cases/set_logged_in_use_case.dart';
 import 'package:onboarding_winter_project/features/auth/presentation/auth_cubit/auth_cubit.dart';
+import 'package:onboarding_winter_project/features/home/data/repos/home_repo_impl.dart';
+import 'package:onboarding_winter_project/features/home/domain/repos/home_repo.dart';
+import 'package:onboarding_winter_project/features/home/presentation/manager/categories_cubit/categories_cubit.dart';
 import 'package:onboarding_winter_project/features/onboarding/data/data_source/local/local_onboarding_data_source.dart';
 import 'package:onboarding_winter_project/features/onboarding/data/repositories/onboarding_repository_impl.dart';
 import 'package:onboarding_winter_project/features/onboarding/domain/repositories/onboarding_repository.dart';
@@ -28,8 +31,7 @@ import 'package:onboarding_winter_project/features/auth/data/data_sources/local/
 GetIt getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
-  final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
+  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
   getIt.registerLazySingleton(() => SharedPrefsHelper(sharedPreferences));
   getIt.registerLazySingleton(() => SecureStorage(secureStorage));
@@ -73,4 +75,8 @@ Future<void> setupDependencies() async {
   getIt.registerFactory<OnboardingCubit>(
     () => OnboardingCubit(getIt(), getIt()),
   );
+
+  //home
+  getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
+  getIt.registerFactory<HomeRepo>(() => HomeRepoImpl(apiService: getIt()));
 }
